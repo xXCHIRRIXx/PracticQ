@@ -1,9 +1,9 @@
-import { db, auth } from './firebase-config.js';
+import { db, auth } from '../js/firebase-config.js';
 import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
 onAuthStateChanged(auth, async (user) => {
-    if (!user) return window.location.href = "login.html";
+    if (!user) return window.location.href = "../html/login.html";
 
     // Cargar email en el header
     const emailEl = document.getElementById('user-email');

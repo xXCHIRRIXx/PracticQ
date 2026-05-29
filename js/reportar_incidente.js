@@ -1,11 +1,11 @@
-import { db, auth } from './firebase-config.js';
+import { db, auth } from '../js/firebase-config.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
 // 1. Verificación de sesión más robusta
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = "login.html";
+        window.location.href = "../index.html";
         return;
     }
     const emailEl = document.getElementById('user-email');
