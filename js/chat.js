@@ -36,7 +36,7 @@ onAuthStateChanged(auth, async (user) => {
             console.error("Error al cargar perfil de usuario:", e);
         }
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '../html/index.html';
     }
 });
 
