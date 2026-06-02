@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Conocimientos | PractiQ</title>
+
+    <link rel="stylesheet" href="../css/biblioteca.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <a href="../html/practicante.html" class="logo">
+        PractiQ <span>knowledge</span>
+    </a>
+
+    <input type="text" id="search" placeholder="Buscar conocimiento...">
+
+</header>
+
+<main class="container">
+
+    <div class="filters">
+        <button data-filter="all">Todos</button>
+        <button data-filter="1">Fácil</button>
+        <button data-filter="3">Media</button>
+        <button data-filter="5">Difícil</button>
+    </div>
+
+    <div id="lista"></div>
+
+</main>
+
+<script type="module" src="../js/biblioteca.js"></script>
+
+</body>
+
+</html>

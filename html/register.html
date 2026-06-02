@@ -1,73 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - PractiQ</title>
+
+    <title>PractiQ | Registro</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="../css/register.css">
 </head>
-<body>
 
-    <header>
-        <a href="./../index.htmlx" class="logo">PractiQ <span>| Control de Calidad</span></a>
-    </header>
+<body class="register-page">
 
-    <main>
-        <div class="card">
-            <h2>Crear Cuenta</h2>
-            <p class="subtitle">Selecciona tu rol en el sistema</p>
+    <!-- Fondos decorativos -->
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <div class="register-card">
+
+        <div class="logo-area">
+            <h1>PractiQ</h1>
+            <p>Crea tu cuenta y comienza a aprender</p>
+        </div>
+
+        <form id="register-form">
+
+            <!-- Mensajes -->
+            <div id="register-message"></div>
+
+            <!-- Nombre -->
+            <div class="input-group">
+
+                <label for="nombre">
+                    Nombre Completo
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="icon">👤</span>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Ingresa tu nombre completo"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- Correo -->
+            <div class="input-group">
+
+                <label for="correo">
+                    Correo Electrónico
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="icon">✉</span>
+
+                    <input
+                        type="email"
+                        id="correo"
+                        placeholder="ejemplo@correo.com"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- Contraseña -->
+            <div class="input-group">
+
+                <label for="password">
+                    Contraseña
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="icon">🔒</span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Mínimo 6 caracteres"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="toggle-password">
+
+                        👁
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Selector de Rol -->
+
+            <label class="role-title">
+                Selecciona tu rol
+            </label>
 
             <div class="role-selector">
-                <input type="radio" id="rol-practicante" name="rol" value="practicante" checked>
-                <label for="rol-practicante">Practicante</label>
-                
-                <input type="radio" id="rol-lider" name="rol" value="lider">
-                <label for="rol-lider">Líder de Calidad</label>
+
+                <input
+                    type="radio"
+                    id="rol-practicante"
+                    name="rol"
+                    value="practicante"
+                    checked>
+
+                <label for="rol-practicante">
+                    Practicante
+                </label>
+
+                <input
+                    type="radio"
+                    id="rol-lider"
+                    name="rol"
+                    value="lider">
+
+                <label for="rol-lider">
+                    Líder
+                </label>
+
             </div>
 
-            <form id="register-form">
-                <div class="input-group">
-                    <label for="nombre">Nombre Completo</label>
-                    <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required>
+            <!-- Campo Dinámico -->
+
+            <div
+                class="input-group"
+                id="dynamic-wrapper">
+
+                <label id="dynamic-label">
+                    Enfoque (Área de práctica)
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="icon">🎯</span>
+
+                    <input
+                        type="text"
+                        id="dinamico"
+                        placeholder="Ej. Desarrollo, QA, UX/UI..."
+                        required>
+
                 </div>
 
-                <div class="dynamic-wrapper" id="dynamic-wrapper">
-                    <div class="dynamic-inner">
-                        <div class="input-group">
-                            <label id="dynamic-label" for="dinamico">Enfoque (Área de práctica)</label>
-                            <input type="text" id="dinamico" placeholder="Ej. Desarrollo, Testing, Diseño UX..." required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="correo">Correo Electrónico Corporativo</label>
-                    <input type="email" id="correo" placeholder="tu@empresa.com" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="password">Contraseña (Mínimo 6 caracteres)</label>
-                    <input type="password" id="password" placeholder="Mínimo 6 caracteres" minlength="6" required>
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="terminos" required>
-                    <label for="terminos">He leído y acepto los <a href="/html/terminos.html" target="_blank">Términos y Condiciones</a>.</label>
-                </div>
-
-                <button type="submit" class="btn" id="btn-submit">Registrar Practicante</button>
-            </form>
-            
-            <div class="links">
-                <p>¿Ya tienes cuenta? <a href="./../index.html">Inicia Sesión</a></p>
             </div>
+
+            <!-- Botón -->
+
+            <button
+                type="submit"
+                id="btn-submit"
+                class="btn-primary">
+
+                Registrar Practicante
+
+            </button>
+
+        </form>
+
+        <div class="register-footer">
+
+            <p>
+
+                ¿Ya tienes cuenta?
+
+                <a href="../index.html">
+                    Inicia sesión
+                </a>
+
+            </p>
+
         </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 PractiQ. Todos los derechos reservados.</p>
-    </footer>
+    </div>
 
     <script type="module" src="../js/register.js"></script>
+
 </body>
+
 </html>

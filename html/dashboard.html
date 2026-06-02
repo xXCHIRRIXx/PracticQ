@@ -1,56 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | PractiQ</title>
-    <link rel="stylesheet" href="../css/lider.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <header>
-        <a href="lider.html" class="logo">PractiQ <span>| Gestión</span></a>
-        <div class="user-menu">
-            <button onclick="window.location.href='lider.html'" class="logout-btn" style="background:#E2E8F0; color:var(--text-dark)">
-                <i class='bx bx-arrow-back'></i> Volver
-            </button>
+<header>
+
+    <a href="lider.html" class="logo">
+        PractiQ
+        <span>| Analytics Center</span>
+    </a>
+
+    <a href="lider.html" class="btn-back">
+        ← Volver al Panel
+    </a>
+
+</header>
+
+<main>
+
+    <section class="hero">
+
+        <h1>Dashboard Inteligente</h1>
+
+        <p>
+            Analítica en tiempo real sobre tareas, productividad y rendimiento.
+        </p>
+
+    </section>
+
+    <!-- KPIS -->
+
+    <section class="kpi-grid">
+
+        <div class="kpi-card">
+            <h3 id="kpi-tareas">0</h3>
+            <span>Tareas Totales</span>
         </div>
-    </header>
 
-    <main>
-        <div class="welcome-section">
-            <h1 class="fade-in" id="dashboard-title">Cargando...</h1>
-            <p class="fade-in delay-1" id="dashboard-subtitle">Obteniendo métricas del sistema...</p>
+        <div class="kpi-card success">
+            <h3 id="kpi-completadas">0%</h3>
+            <span>Completadas</span>
         </div>
 
-        <div class="dashboard-grid">
-            <div class="card fade-in delay-2">
-                <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;"><i class='bx bx-group'></i></div>
-                <h3 id="count-practicantes">0</h3>
-                <p>Practicantes Activos</p>
-            </div>
-
-            <div class="card fade-in delay-3">
-                <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;"><i class='bx bx-check-circle'></i></div>
-                <h3 id="count-tareas">0</h3>
-                <p>Tareas Completadas</p>
-            </div>
-
-            <div class="card fade-in delay-4">
-                <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;"><i class='bx bx-time-five'></i></div>
-                <h3 id="count-pendientes">0</h3>
-                <p>Tareas Pendientes</p>
-            </div>
-
-            <div class="card fade-in delay-5">
-                <div class="card-icon" style="background: rgba(79, 70, 229, 0.1); color: #4F46E5;"><i class='bx bx-trending-up'></i></div>
-                <h3 id="porcentaje-eficiencia">0%</h3>
-                <p>Nivel de Eficiencia</p>
-            </div>
+        <div class="kpi-card warning">
+            <h3 id="kpi-pendientes">0</h3>
+            <span>Pendientes</span>
         </div>
-    </main>
 
-    <script type="module" src="../js/dashboard.js"></script>
+        <div class="kpi-card primary">
+            <h3 id="kpi-progreso">0%</h3>
+            <span>Progreso General</span>
+        </div>
+
+    </section>
+
+    <!-- CHART -->
+
+    <section class="chart-card">
+
+        <div class="chart-header">
+            <h2>Estado General</h2>
+        </div>
+
+        <div class="chart-wrapper">
+
+            <canvas id="chart-progreso"></canvas>
+
+            <div class="chart-center">
+                <span id="chart-percent">0%</span>
+                <small>Completado</small>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INSIGHTS -->
+
+    <section class="insights">
+
+        <div class="insight-card">
+            <h4>Dificultad Media</h4>
+            <span id="media-dificultad">0</span>
+        </div>
+
+        <div class="insight-card">
+            <h4>Promedio Pasos</h4>
+            <span id="media-pasos">0</span>
+        </div>
+
+        <div class="insight-card">
+            <h4>Máximo Progreso</h4>
+            <span id="max-progreso">0%</span>
+        </div>
+
+        <div class="insight-card">
+            <h4>Mínimo Progreso</h4>
+            <span id="min-progreso">0%</span>
+        </div>
+
+    </section>
+
+    <!-- TABLA -->
+
+    <section class="table-card">
+
+        <h2>Detalle de Tareas</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Tarea</th>
+                    <th>Progreso</th>
+                    <th>Dificultad</th>
+                    <th>Comentarios</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tabla-body"></tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<script src="../js/dashboard.js"></script>
+
 </body>
+
 </html>

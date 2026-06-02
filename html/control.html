@@ -1,28 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Avances | PractiQ</title>
+    <title>Control | PractiQ</title>
+
     <link rel="stylesheet" href="../css/control.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-    <header>
-        <a href="../html/practicante.html" class="logo">PractiQ <span>| Control</span></a>
-        <div class="user-menu"><span id="user-email"></span></div>
-    </header>
+<header>
+    <a href="../html/practicante.html" class="logo">PractiQ <span>control</span></a>
+    <div id="user-email"></div>
+</header>
 
-    <main class="container">
-        <button onclick="window.location.href='../html/practicante.html'" class="btn-top-back">
-            <i class='bx bx-arrow-back'></i> Volver al panel
-        </button>
+<main class="container">
 
-        <h2 class="section-title">Gestionar mis avances</h2>
-        <div id="lista-control">Cargando actividades...</div>
-    </main>
+    <button onclick="window.location.href='../html/practicante.html'" class="btn-back">
+        <i class='bx bx-arrow-back'></i> Volver
+    </button>
 
-    <script type="module" src="../js/control.js"></script>
+    <h2 class="title">Mis tareas</h2>
+
+    <div id="lista-control"></div>
+
+</main>
+
+<!-- MODAL PRO CONOCIMIENTO -->
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Registrar conocimiento</h2>
+
+        <p>Completa la información para guardar en la biblioteca</p>
+
+        <textarea id="comentario" placeholder="¿Qué hiciste?"></textarea>
+        <textarea id="pasos" placeholder="Pasos realizados"></textarea>
+        <textarea id="mejora" placeholder="¿Cómo se podría mejorar?"></textarea>
+
+        <label>Dificultad</label>
+        <select id="dificultad">
+            <option value="">Selecciona</option>
+            <option value="1">1 - Fácil</option>
+            <option value="2">2</option>
+            <option value="3">3 - Media</option>
+            <option value="4">4</option>
+            <option value="5">5 - Difícil</option>
+        </select>
+
+        <button id="guardar">Guardar y completar</button>
+        <button id="cancelar">Cancelar</button>
+
+    </div>
+
+</div>
+
+<script type="module" src="../js/control.js"></script>
+
 </body>
+
 </html>

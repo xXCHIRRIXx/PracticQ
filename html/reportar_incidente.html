@@ -4,47 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportar Incidente | PractiQ</title>
-    <link rel="stylesheet" href="../css/ver_mis_tareas.css">
+
     <link rel="stylesheet" href="../css/reportar_incidente.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-    <header>
-        <a href="../html/practicante.html" class="logo">PractiQ <span>| Soporte</span></a>
-        <div class="user-menu"><span id="user-email"></span></div>
-    </header>
+<header class="topbar">
+    <a href="../html/practicante.html" class="logo">
+        PractiQ <span>| Soporte</span>
+    </a>
 
-    <main class="container">
-        <button onclick="window.history.back()" class="btn-top-back">
-            <i class='bx bx-arrow-back'></i> Volver
+    <div class="user">
+        <i class='bx bx-user'></i>
+        <span id="user-email">Cargando...</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <button class="btn-back" onclick="window.history.back()">
+        <i class='bx bx-arrow-back'></i> Volver
+    </button>
+
+    <form id="form-incidente" class="card-incidente">
+
+        <h2><i class='bx bx-error-circle'></i> Reportar Incidente</h2>
+        <p>Describe el problema y tu líder lo verá al instante.</p>
+
+        <div class="input-group">
+            <label>Título</label>
+            <input type="text" id="titulo" placeholder="Ej: Error en login" required>
+        </div>
+
+        <div class="input-group">
+            <label>Asunto</label>
+            <input type="text" id="asunto" placeholder="Ej: Problema técnico" required>
+        </div>
+
+        <div class="input-group">
+            <label>Descripción</label>
+            <textarea id="descripcion" placeholder="Explica qué ocurrió..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+            <i class='bx bx-send'></i> Enviar reporte
         </button>
 
-        <form id="form-incidente" class="card-incidente">
-            <h2><i class='bx bx-error-circle'></i> Reportar Incidente</h2>
-            <p>Describe el inconveniente para que tu líder pueda ayudarte.</p>
-            
-            <div class="input-group">
-                <label>Título</label>
-                <input type="text" id="titulo" placeholder="Ej: Error en acceso a base de datos" required>
-            </div>
+    </form>
 
-            <div class="input-group">
-                <label>Asunto</label>
-                <input type="text" id="asunto" placeholder="Ej: Problemas técnicos" required>
-            </div>
+</main>
 
-            <div class="input-group">
-                <label>Descripción</label>
-                <textarea id="descripcion" placeholder="Explica detalladamente qué sucedió..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">
-                <i class='bx bx-send'></i> Enviar Reporte
-            </button>
-        </form>
-    </main>
-
-    <script type="module" src="../js/reportar_incidente.js"></script>
+<script type="module" src="../js/reportar_incidente.js"></script>
 </body>
 </html>

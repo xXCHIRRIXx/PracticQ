@@ -1,53 +1,129 @@
-import { db, auth } from '../js/firebase-config.js';
-import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import {
+    collection,
+    query,
+    where,
+    getDocs,
+    doc,
+    updateDoc,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { db, auth } from "../js/firebase-config.js";
 
+let tareaActual = null;
+
+/* AUTH */
 onAuthStateChanged(auth, async (user) => {
-    if (!user) return window.location.href = "../html/login.html";
 
-    // Cargar email en el header
-    const emailEl = document.getElementById('user-email');
-    if(emailEl) emailEl.textContent = user.email;
-
-    const contenedor = document.getElementById('lista-control');
-    const q = query(collection(db, "tareas"), where("practicanteId", "==", user.uid));
-    const snapshot = await getDocs(q);
-
-    contenedor.innerHTML = "";
-    if (snapshot.empty) {
-        contenedor.innerHTML = `<p style="text-align:center; color:#94a3b8;">No tienes tareas asignadas.</p>`;
+    if (!user) {
+        window.location.href = "../html/login.html";
         return;
     }
 
-    snapshot.forEach((docSnap) => {
-        const t = docSnap.data();
-        const div = document.createElement('div');
-        div.className = `card-control ${t.completada ? 'completada' : ''}`;
+    document.getElementById("user-email").textContent = user.email;
+
+    cargar(user.uid);
+
+});
+
+/* CARGAR */
+async function cargar(uid){
+
+    const contenedor = document.getElementById("lista-control");
+
+    const q = query(collection(db,"tareas"),where("practicanteId","==",uid));
+
+    const snap = await getDocs(q);
+
+    contenedor.innerHTML = "";
+
+    snap.forEach((d)=>{
+
+        const t = d.data();
+
+        const div = document.createElement("div");
+        div.className = `card ${t.completada ? "done":""}`;
+
         div.innerHTML = `
-            <div class="tarea-info">
-                <h3 style="margin:0 0 8px 0;">${t.titulo}</h3>
-                <span style="font-size: 0.85rem; color: ${t.completada ? '#059669' : '#64748b'}">
-                    ${t.completada ? '● Completado' : '○ Pendiente'}
-                </span>
+            <div>
+                <h3>${t.titulo}</h3>
+                <small>${t.completada ? "Completado":"Pendiente"}</small>
             </div>
-            <button class="btn-check ${t.completada ? 'btn-deshacer' : 'btn-marcar'}" 
-                    data-id="${docSnap.id}" 
-                    data-estado="${!t.completada}">
-                ${t.completada ? 'Deshacer' : 'Completar Tarea'}
+
+            <button class="btn ${t.completada ? "btn-red":"btn-blue"}">
+                ${t.completada ? "Deshacer":"Completar"}
             </button>
         `;
+
+        const btn = div.querySelector("button");
+
+        btn.onclick = () => {
+
+            if(t.completada){
+                revertir(d.id);
+            }else{
+                tareaActual = d.id;
+                abrirModal();
+            }
+
+        };
+
         contenedor.appendChild(div);
+
     });
 
-    // Eventos de botones
-    document.querySelectorAll('.btn-check').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            const id = e.target.getAttribute('data-id');
-            const nuevoEstado = e.target.getAttribute('data-estado') === 'true';
-            
-            e.target.innerText = "Actualizando...";
-            await updateDoc(doc(db, "tareas", id), { completada: nuevoEstado });
-            location.reload(); 
-        });
+}
+
+/* MODAL */
+function abrirModal(){
+    document.getElementById("modal").style.display="flex";
+}
+
+document.getElementById("cancelar").onclick = () =>{
+    document.getElementById("modal").style.display="none";
+};
+
+/* GUARDAR CONOCIMIENTO */
+document.getElementById("guardar").onclick = async () => {
+
+    const comentario = document.getElementById("comentario").value;
+    const pasos = document.getElementById("pasos").value;
+    const mejora = document.getElementById("mejora").value;
+    const dificultad = document.getElementById("dificultad").value;
+
+    if(!comentario || !pasos || !mejora || !dificultad){
+        alert("Completa todos los campos");
+        return;
+    }
+
+    /* actualizar tarea */
+    await updateDoc(doc(db,"tareas",tareaActual),{
+        completada:true
     });
-});
+
+    /* guardar en biblioteca */
+    await addDoc(collection(db,"biblioteca_conocimientos"),{
+        tareaId:tareaActual,
+        comentario,
+        pasos,
+        mejora,
+        dificultad,
+        fecha:serverTimestamp()
+    });
+
+    document.getElementById("modal").style.display="none";
+
+    location.reload();
+
+};
+
+/* REVERTIR */
+async function revertir(id){
+    await updateDoc(doc(db,"tareas",id),{
+        completada:false
+    });
+
+    location.reload();
+}

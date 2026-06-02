@@ -1,72 +1,83 @@
-import { db, auth } from './firebase-config.js';
-import { collection, query, where, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+const demoTareas = [
+    { titulo:"Login System", progreso:90, dificultad:4, comentarios:"Auth OK", completada:true },
+    { titulo:"Dashboard UI", progreso:70, dificultad:3, comentarios:"Mejoras UI", completada:false },
+    { titulo:"Chat IA", progreso:55, dificultad:5, comentarios:"En progreso", completada:false },
+    { titulo:"Biblioteca", progreso:30, dificultad:5, comentarios:"Base creada", completada:false },
+    { titulo:"Roles System", progreso:100, dificultad:2, comentarios:"Finalizado", completada:true }
+];
 
-onAuthStateChanged(auth, async (user) => {
-    if (!user) return window.location.href = "login.html";
-
-    try {
-        // Obtener datos del usuario actual para definir el alcance
-        const userDoc = await getDoc(doc(db, "usuarios", user.uid));
-        const userData = userDoc.exists() ? userDoc.data() : { rol: 'practicante' };
-        
-        // Ajustar títulos según el rol
-        const title = document.getElementById('dashboard-title');
-        const subtitle = document.getElementById('dashboard-subtitle');
-
-        if (userData.rol === 'admin') {
-            title.textContent = "Dashboard Global (Admin)";
-            subtitle.textContent = "Visualización total de métricas del sistema y rendimiento de todos los líderes.";
-        } else {
-            title.textContent = "Balance de Gestión";
-            subtitle.textContent = "Resumen ejecutivo del rendimiento de tu equipo de calidad.";
-        }
-
-        cargarEstadisticas(user.uid, userData.rol);
-    } catch (e) {
-        console.error("Error al identificar usuario:", e);
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    render(demoTareas);
 });
 
-async function cargarEstadisticas(uid, rol) {
-    try {
-        let qPracticantes, qTareas;
+function render(data){
 
-        // Lógica de alcance: Admin ve todo, Líder ve lo suyo
-        if (rol === 'admin') {
-            qPracticantes = collection(db, "usuarios");
-            qTareas = collection(db, "tareas");
-        } else {
-            qPracticantes = query(collection(db, "usuarios"), where("liderId", "==", uid));
-            qTareas = query(collection(db, "tareas"), where("liderId", "==", uid));
+    let total = data.length;
+    let comp = 0;
+    let pen = 0;
+    let sum = 0;
+    let max = 0;
+    let min = 100;
+
+    const tbody = document.getElementById("tabla-body");
+    tbody.innerHTML = "";
+
+    data.forEach(t => {
+
+        if(t.completada) comp++;
+        else pen++;
+
+        sum += t.progreso;
+        max = Math.max(max, t.progreso);
+        min = Math.min(min, t.progreso);
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${t.titulo}</td>
+                <td>${t.progreso}%</td>
+                <td>${t.dificultad}/5</td>
+                <td>${t.comentarios}</td>
+            </tr>
+        `;
+    });
+
+    // KPIs
+    document.getElementById("kpi-tareas").innerText = total;
+    document.getElementById("kpi-completadas").innerText = Math.round((comp/total)*100) + "%";
+    document.getElementById("kpi-pendientes").innerText = pen;
+    document.getElementById("kpi-progreso").innerText = Math.round(sum/total) + "%";
+
+    // insights
+    document.getElementById("media-dificultad").innerText =
+        (data.reduce((a,b)=>a+b.dificultad,0)/total).toFixed(1);
+
+    document.getElementById("media-pasos").innerText =
+        (Math.random()*5+4).toFixed(1);
+
+    document.getElementById("max-progreso").innerText = max + "%";
+    document.getElementById("min-progreso").innerText = min + "%";
+
+    // CHART SEMI DONUT
+    const porcentaje = Math.round((comp/(comp+pen))*100);
+    document.getElementById("chart-percent").innerText = porcentaje + "%";
+
+    new Chart(document.getElementById("chart-progreso"), {
+        type: "doughnut",
+        data: {
+            labels: ["Completadas", "Pendientes"],
+            datasets: [{
+                data: [comp, pen],
+                backgroundColor: ["#22c55e", "#ef4444"],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: "70%",
+            rotation: -90,
+            circumference: 180,
+            plugins: {
+                legend: { display: false }
+            }
         }
-
-        const [snapPracticantes, snapTareas] = await Promise.all([
-            getDocs(qPracticantes),
-            getDocs(qTareas)
-        ]);
-
-        let completadas = 0;
-        let pendientes = 0;
-
-        snapTareas.forEach(d => {
-            d.data().estado === 'pendiente' ? pendientes++ : completadas++;
-        });
-
-        // Filtrado de practicantes para conteo (en caso de Admin)
-        const totalPracticantes = rol === 'admin' 
-            ? snapPracticantes.docs.filter(d => d.data().rol === 'practicante').length 
-            : snapPracticantes.size;
-
-        document.getElementById('count-practicantes').textContent = totalPracticantes;
-        document.getElementById('count-tareas').textContent = completadas;
-        document.getElementById('count-pendientes').textContent = pendientes;
-        
-        const total = completadas + pendientes;
-        const eficiencia = total > 0 ? Math.round((completadas / total) * 100) : 0;
-        document.getElementById('porcentaje-eficiencia').textContent = `${eficiencia}%`;
-
-    } catch (error) {
-        console.error("Error al calcular estadísticas:", error);
-    }
+    });
 }

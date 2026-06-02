@@ -1,46 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Tareas Premium | PractiQ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Gestión de Tareas | PractiQ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="../css/gestionar_tareas.css">
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
 
     <header>
-        <a href="lider.html" class="logo">PractiQ <span>| Gestión de Calidad</span></a>
+
+        <a href="lider.html" class="logo">
+            PractiQ
+            <span>| Líder de Calidad</span>
+        </a>
+
         <div class="user-menu">
-            <span id="user-email">Cargando...</span>
-            <div class="user-icon"><i class='bx bxs-user-circle'></i></div>
+
+            <span id="user-email">
+                Cargando líder...
+            </span>
+
+            <a href="lider.html" class="btn-back-header">
+                <i class='bx bx-home'></i>
+                Panel
+            </a>
+
         </div>
+
     </header>
 
     <main class="main-content">
-        <div class="top-bar">
-            <button onclick="window.history.back()" class="btn-back">
-                <i class='bx bx-chevron-left'></i> Volver al Panel
-            </button>
-            <div class="stats-mini">
-                <span id="total-tareas">0</span> Tareas en total
-            </div>
-        </div>
 
         <section class="content-header">
-            <h1 class="fade-in">Control de Asignaciones</h1>
-            <p class="fade-in delay-1">Monitorea el cumplimiento y desempeño de tus practicantes en tiempo real.</p>
+
+            <div class="header-left">
+
+                <a href="lider.html" class="btn-back">
+                    <i class='bx bx-chevron-left'></i>
+                    Volver al Panel
+                </a>
+
+                <h1 class="glow-title">
+                    Control de Asignaciones
+                </h1>
+
+                <p>
+                    Monitoreo de tareas, estados y seguimiento de practicantes en tiempo real.
+                </p>
+
+            </div>
+
+            <div class="stats-mini">
+                <i class='bx bx-task'></i>
+                <span id="total-tareas">0</span>
+                tareas registradas
+            </div>
+
         </section>
 
-        <div id="lista-tareas-lider" class="tasks-grid">
-            <div class="loader-container">
-                <i class='bx bx-loader-alt bx-spin'></i>
-                <p>Sincronizando con la nube...</p>
+        <section class="tasks-section">
+
+            <div id="lista-tareas-lider" class="tasks-grid">
+
+                <div class="loader-container">
+                    <i class='bx bx-loader-alt bx-spin'></i>
+                    <p>Sincronizando tareas...</p>
+                </div>
+
             </div>
-        </div>
+
+        </section>
+
     </main>
 
     <script type="module" src="../js/gestionar_tareas.js"></script>
+
 </body>
+
 </html>

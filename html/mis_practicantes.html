@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Practicantes | PractiQ</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/mis_practicantes.css">
 </head>
+
 <body>
 
-    <header class="main-header">
-        <a href="lider.html" class="logo">PractiQ <span>| Panel de Líder</span></a>
-        <div class="user-menu">
-            <span id="user-email">Cargando...</span>
-            <button id="btn-logout" class="logout-btn"><i class='bx bx-log-out'></i> Salir</button>
-        </div>
-    </header>
+<header class="main-header">
+    <a href="lider.html" class="logo">PractiQ <span>| Panel de Líder</span></a>
 
-    <main class="gestor-container">
-        <div class="header-section">
-            <button class="btn-back" onclick="window.history.back()">
-                <i class='bx bx-arrow-back'></i> Volver
-            </button>
-            <h1>Mis Practicantes Asignados</h1>
-            <p>Visualiza y gestiona a los practicantes bajo tu supervisión.</p>
-        </div>
+    <div class="user-menu">
+        <span id="user-email">Cargando...</span>
+        <button id="btn-logout" class="logout-btn">
+            <i class='bx bx-log-out'></i> Salir
+        </button>
+    </div>
+</header>
 
-        <div id="lista-practicantes" class="fade-in">
-            <p style="text-align:center; padding: 2rem;">
-                <i class='bx bx-loader-alt bx-spin'></i> Cargando tus practicantes...
-            </p>
-        </div>
-    </main>
+<main class="gestor-container">
 
-    <script type="module" src="../js/mis_practicantes.js"></script>
+    <div class="header-section">
+        <button class="btn-back" onclick="window.history.back()">
+            <i class='bx bx-arrow-back'></i> Volver
+        </button>
+
+        <h1>Mis Practicantes Asignados</h1>
+        <p>Controla tareas, progreso y actividad de tu equipo.</p>
+    </div>
+
+    <div id="lista-practicantes" class="fade-in">
+        <p class="loading">
+            <i class='bx bx-loader-alt bx-spin'></i> Cargando practicantes...
+        </p>
+    </div>
+
+</main>
+
+<script type="module" src="../js/mis_practicantes.js"></script>
+
 </body>
 </html>

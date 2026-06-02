@@ -1,95 +1,158 @@
-/* --- Variables de Diseño --- */
 :root {
     --primary: #4f46e5;
     --primary-hover: #4338ca;
-    --bg: #f8fafc;
-    --text: #1e293b;
-    --white: #ffffff;
-    --border: #e2e8f0;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --bg: #0f172a;
+    --card: #111c33;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(255,255,255,0.08);
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-* { box-sizing: border-box; }
-
-body { 
-    font-family: 'Inter', -apple-system, sans-serif; 
-    background: var(--bg); 
-    color: var(--text); 
-    margin: 0; 
-    line-height: 1.5;
+* {
+    box-sizing: border-box;
 }
 
-/* --- Header Profesional --- */
-.main-header { 
-    background: var(--white); 
-    padding: 1rem 2rem; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-}
-.logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-.logo span { font-weight: 400; color: #64748b; font-size: 1rem; }
-.user-menu { display: flex; align-items: center; gap: 15px; }
-.logout-btn { 
-    background: #ef4444; color: white; border: none; 
-    padding: 8px 15px; border-radius: 6px; cursor: pointer; 
+body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: radial-gradient(circle at top, #1e293b, #0f172a);
+    color: var(--text);
 }
 
-/* --- Contenedor Principal --- */
-.gestor-container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-.header-section { margin-bottom: 2rem; }
-.btn-back { 
-    background: none; border: 1px solid var(--border); 
-    padding: 8px 16px; border-radius: 6px; cursor: pointer; 
-    margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; 
+/* HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: rgba(17, 28, 51, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
 }
 
-/* --- Tarjetas Acordeón --- */
-.card-practicante { 
-    background: var(--white); 
-    border-radius: 12px; 
-    padding: 20px; 
-    margin-bottom: 15px;
-    box-shadow: var(--shadow); 
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.card-practicante:hover { transform: translateY(-2px); }
-
-.header-p { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+.logo {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.3rem;
 }
 
-.badge { 
-    background: #eef2ff; color: var(--primary); 
-    padding: 4px 10px; border-radius: 20px; 
-    font-weight: 600; font-size: 0.85rem; 
+.logo span {
+    color: var(--muted);
+    font-weight: 400;
 }
 
-/* --- Tareas Desplegadas --- */
-.tareas-container { 
-    border-top: 1px solid var(--border); 
-    margin-top: 15px; 
-    padding-top: 15px; 
-}
-.tarea-item { 
-    padding: 10px; 
-    background: #f1f5f9; 
-    margin-bottom: 8px; 
-    border-radius: 6px; 
-    font-size: 0.9rem;
+.user-menu {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
-.tarea-item i { color: var(--primary); }
 
-/* --- Animaciones --- */
-@keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
+.logout-btn {
+    background: #ef4444;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
 }
-.fade-in { animation: fadeIn 0.4s ease; }
+
+/* CONTAINER */
+.gestor-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.header-section h1 {
+    margin-bottom: 6px;
+}
+
+.header-section p {
+    color: var(--muted);
+}
+
+.btn-back {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* CARDS */
+.card-practicante {
+    background: linear-gradient(145deg, #111c33, #0f1a30);
+    border: 1px solid var(--border);
+    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    transition: transform .2s ease;
+}
+
+.card-practicante:hover {
+    transform: translateY(-3px);
+}
+
+.header-p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.badge {
+    background: rgba(79,70,229,0.2);
+    color: #a5b4fc;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+
+/* TASKS */
+.tareas-container {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.tarea-item {
+    background: rgba(255,255,255,0.04);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.tarea-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tarea-desc {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* LOADING */
+.loading {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px;
+}
+
+/* ANIMATION */
+.fade-in {
+    animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

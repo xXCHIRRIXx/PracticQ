@@ -1,56 +1,62 @@
 import { db, auth } from '../js/firebase-config.js';
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-// 1. Verificación de sesión más robusta
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+const form = document.getElementById('form-incidente');
+const btn = document.getElementById('btn-submit');
+const emailEl = document.getElementById('user-email');
+
+let currentUser = null;
+
+/* 🔐 AUTH */
 onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = "../index.html";
         return;
     }
-    const emailEl = document.getElementById('user-email');
-    if (emailEl) emailEl.textContent = user.email;
+
+    currentUser = user;
+    emailEl.textContent = user.email;
 });
 
-// 2. Manejo del formulario
-document.getElementById('form-incidente').addEventListener('submit', async (e) => {
+/* 📩 SUBMIT */
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    const btn = e.target.querySelector('button');
-    btn.textContent = "Enviando...";
-    btn.disabled = true;
 
-    // Captura de valores
-    const titulo = document.getElementById('titulo').value;
-    const asunto = document.getElementById('asunto').value;
-    const descripcion = document.getElementById('descripcion').value;
+    if (!currentUser) return;
+
+    const titulo = document.getElementById('titulo').value.trim();
+    const asunto = document.getElementById('asunto').value.trim();
+    const descripcion = document.getElementById('descripcion').value.trim();
+
+    btn.disabled = true;
+    btn.innerHTML = `<i class='bx bx-loader-alt bx-spin'></i> Enviando...`;
 
     try {
-        // Aseguramos que tenemos un usuario logueado
-        if (!auth.currentUser) throw new Error("No hay usuario autenticado.");
-
-        // 3. Ejecución y captura del documento creado
-        const docRef = await addDoc(collection(db, "incidentes"), {
-            titulo: titulo,
-            asunto: asunto,
-            descripcion: descripcion,
-            practicanteId: auth.currentUser.uid,
+        await addDoc(collection(db, "incidentes"), {
+            titulo,
+            asunto,
+            descripcion,
+            practicanteId: currentUser.uid,
             fecha: new Date().toISOString(),
             leido: false
         });
 
-        console.log("Documento guardado con ID: ", docRef.id);
-        
-        // Confirmación visual
-        alert("¡Reporte enviado exitosamente!");
-        window.location.href = "practicante.html";
+        alert("Incidente enviado con éxito 🚀");
 
-    } catch (error) {
-        console.error("DETALLE DEL ERROR:", error);
-        alert("Error al enviar: " + error.message);
-        
-        // Restaurar botón
-        btn.textContent = "Enviar Reporte";
+        window.location.href = "../html/practicante.html";
+
+    } catch (err) {
+        console.error(err);
+        alert("Error al enviar el incidente");
+
         btn.disabled = false;
+        btn.innerHTML = `<i class='bx bx-send'></i> Enviar reporte`;
     }
 });
