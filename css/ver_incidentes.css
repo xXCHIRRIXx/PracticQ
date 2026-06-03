@@ -1,63 +1,151 @@
-/* Importación de fuente moderna */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #3B82F6;
+    --success: #10B981;
+    --danger: #EF4444;
+
+    --bg: #0B1220;
+    --card: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.08);
+
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+}
 
 body { 
-    background-color: #f8fafc; 
+    background-color: var(--bg); 
     font-family: 'Inter', sans-serif; 
     margin: 0; 
-    color: #334155;
+    color: var(--text);
+    min-height: 100vh;
 }
 
-/* Header Consistente */
+/* HEADER CONSISTENTE */
 header { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 20px 8%; background: #ffffff; 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 18px 5%; 
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
 }
 
-.logo { font-weight: 800; font-size: 1.5rem; color: #4f46e5; text-decoration: none; }
-.logo span { font-weight: 300; color: #94a3b8; }
+.logo { 
+    font-weight: 800; 
+    font-size: 1.5rem; 
+    color: var(--primary); 
+    text-decoration: none; 
+}
 
-/* Contenedor Principal */
-.container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.logo span { 
+    font-weight: 400; 
+    color: var(--muted); 
+}
 
-.section-title { font-size: 1.8rem; margin-bottom: 30px; color: #1e293b; }
+#user-email {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
 
-/* Botón Volver */
+/* CONTENEDOR PRINCIPAL */
+.container { 
+    max-width: 900px; 
+    margin: 40px auto; 
+    padding: 0 20px; 
+}
+
+.section-title { 
+    font-size: 1.8rem; 
+    font-weight: 700;
+    margin-bottom: 30px; 
+    color: #FFFFFF; 
+}
+
+/* BOTÓN VOLVER */
 .btn-top-back { 
-    background: #ffffff; border: 1px solid #e2e8f0; 
-    padding: 10px 20px; border-radius: 12px; cursor: pointer; 
-    color: #64748b; font-weight: 600; display: flex; 
-    align-items: center; gap: 8px; transition: 0.3s;
+    background: rgba(255, 255, 255, 0.04); 
+    border: 1px solid var(--border); 
+    padding: 10px 20px; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    color: #FFFFFF; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    transition: 0.3s;
+    margin-bottom: 20px;
 }
-.btn-top-back:hover { border-color: #cbd5e1; color: #1e293b; background: #f1f5f9; }
 
-/* Tarjetas de Incidente (Estilo Tarjeta Elevada) */
+.btn-top-back:hover { 
+    border-color: var(--primary); 
+    background: rgba(255, 255, 255, 0.1); 
+    transform: translateX(-3px); 
+}
+
+/* TARJETAS DE INCIDENTE */
 .card-incidente-admin {
-    background: white;
+    background: var(--card);
     padding: 25px;
     border-radius: 16px;
     margin-bottom: 20px;
-    border-left: 6px solid #4f46e5;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--danger); /* Identificador visual de incidentes en rojo */
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: start;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.4s ease forwards;
 }
 
 .card-incidente-admin:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
+.incidente-info h3 { 
+    margin: 12px 0; 
+    color: #FFFFFF; 
+    font-size: 1.25rem;
+}
+
+.incidente-info p { 
+    color: var(--muted); 
+    line-height: 1.6; 
+    margin-bottom: 15px; 
+}
+
+/* BADGES DE ASUNTO */
 .badge-asunto {
-    background: #e0e7ff; color: #4338ca;
-    padding: 4px 12px; border-radius: 20px;
-    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    background: rgba(239, 68, 68, 0.1); 
+    color: var(--danger);
+    padding: 6px 14px; 
+    border-radius: 20px;
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    justify-self: end;
 }
 
-.incidente-info h3 { margin: 12px 0; color: #1e293b; }
-.incidente-info p { color: #64748b; line-height: 1.6; margin-bottom: 15px; }
+.incidente-meta { 
+    color: #64748B; 
+    font-size: 0.85rem; 
+    display: flex; 
+    gap: 15px; 
+}
 
-.incidente-meta { color: #94a3b8; font-size: 0.8rem; display: flex; gap: 15px; }
+#lista-incidentes {
+    color: var(--muted);
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(12px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
